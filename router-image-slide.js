@@ -10,6 +10,10 @@ let numberOfImages=0
 // listOfImages is for saving the images we want to send
 const listOfImage=[]
 
+try{
+
+
+
 // trendingMovies holds the json response of the request for trending movies
 let trendingMovies= (await fetch("https://api.themoviedb.org/3/trending/movie/week?api_key=5df9d8434a271efeaf152516c002398d"))
 
@@ -43,6 +47,14 @@ for(const movie of trendingTvSeries.results){
     listOfImage.push(`https://image.tmdb.org/t/p/original/${movie.poster_path}`)
     numberOfImages++
 }
+
+
+}
+catch(err){
+    res.status(500)
+    return res.json({error:"Internal Error In Server Try again"})
+    
+    }
 
 
 res.status(200)
