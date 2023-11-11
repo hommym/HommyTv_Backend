@@ -15,6 +15,12 @@ app.use("/api/movies", movies.router)
 app.use("/api/tv_series",series.router)
 
 
+app.all('*',(req,res)=>{
+
+res.status(404)
+res.json({error:"Resource Not found"})
+
+})
 
 
 app.listen(5000,()=>{
