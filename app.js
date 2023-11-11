@@ -15,6 +15,9 @@ app.use("/api/movies", movies.router)
 
 
 
-app.listen()
+app.listen(5000,()=>{
+console.log("Server is listening to port 5000");
+
+})
 
 
