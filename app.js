@@ -7,10 +7,12 @@ const app= express()
 
 const imgSlideRouter= require("./router-image-slide.js")
 const movies=require("./router-movies.js")
+const series=require("./router-tv_series.js")
 
 
 app.use("/api/images", imgSlideRouter.router)
 app.use("/api/movies", movies.router)
+app.use("/api/tv_series",series.router)
 
 
 
