@@ -5,7 +5,8 @@ const mongoose=require("mongoose")
 const schemaForUserAccountCollection= new mongoose.Schema({
 name:{
     type:String,
-    required:true
+    required:true,
+    minlength:3
 },
 
 phone:{
@@ -15,12 +16,14 @@ phone:{
 
 email:{
     type:String,
-    required:true
+    required:true,
+    minlength:10
 },
 
 password:{
 type:String,
-required:true
+required:true,
+minlength:4
 
 },
 isProfileset:{
