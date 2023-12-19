@@ -2,6 +2,8 @@
 const express= require("express")
 const databaseConnector=require("./Database/connectDb")
 const accountRouter=require("./Routes/acount-route")
+const resourceNotAvialableMiddleware=require("./middleware/resource-unavialable-middleware")
+
 
 require("dotenv").config()
 
@@ -15,6 +17,10 @@ app.use(express.json())
 
 // setting up routers
 app.use("/api/v1/account",accountRouter)
+
+
+// midlleware for unavialable resources
+app.use(resourceNotAvialableMiddleware)
 
 
 
