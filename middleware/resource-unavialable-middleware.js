@@ -1,6 +1,6 @@
 const resoucesNotAvialable= (req,res,next)=>{
 
-res.status(400).json({staus:"Succesfull",message:"Resource Unavialable"})
+res.status(404).json({staus:"Succesfull",message:"Resource Unavialable"})
 
 
 }
