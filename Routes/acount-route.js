@@ -2,11 +2,13 @@
 const express= require("express")
 const userAccountCollection= require("../Database/user-account-collection")
 const accountCreationMiddleware= require("../middleware/user-error-checker")
+const jwt=require("jsonwebtoken")
+require("dotenv").config()
 
 
 const accountRouter=express.Router()
 
-// this route will have a middleware for checking if all the required data is present(not implemented)
+
 accountRouter.post("/signup",accountCreationMiddleware,async (req,res)=>{
 
     const body= req.body
@@ -33,6 +35,50 @@ accountRouter.post("/signup",accountCreationMiddleware,async (req,res)=>{
 })
 
 
+accountRouter.get("/login", async(req,res)=>{
+
+try {
+const {email,password} =req.body 
+
+// checking if the required data was sent together with the request
+if(!email || !password){
+
+    res.status(400).json({status:"failed",message:"Bad request"})
+}
+
+else{
+const account= await userAccountCollection.find({email:email,password:password})
+
+
+// checking if acount exist in database
+if(account.length==1){
+
+const {_id}= account[0]
+const token =jwt.sign({id:_id},process.env.SECRETKEYFORJWT,{ expiresIn: '1d' })
+
+res.status(200).json({status:"Succesfull",message:"LogIn Successfully",tokenForAuth:token})
+
+
+
+
+}
+else{
+
+    res.status(200).json({satus:"Failed",message:"Invalid email and password"})
+
+}
+
+}
+
+
+    
+} catch (error) {
+    
+res.status(500).json({satus:"Failed",message:`${error}`})
+}
+
+    
+})
 
 
 module.exports=accountRouter
