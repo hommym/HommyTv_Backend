@@ -9,6 +9,8 @@ require("dotenv").config()
 const accountRouter=express.Router()
 
 
+
+
 accountRouter.post("/signup",accountCreationMiddleware,async (req,res)=>{
 
     const body= req.body
@@ -37,6 +39,7 @@ accountRouter.post("/signup",accountCreationMiddleware,async (req,res)=>{
 
 accountRouter.get("/login", async(req,res)=>{
 
+ 
 try {
 const {email,password} =req.body 
 
@@ -79,6 +82,27 @@ res.status(500).json({satus:"Failed",message:`${error}`})
 
     
 })
+
+
+accountRouter.post("/edit-account-info/name",async (req,res)=>{
+
+const body =req.body
+
+if(body.name){
+
+await userAccountCollection.updateOne({_id:req.userAccount._id},{$set:{name:body.name}})
+
+  return  res.status(200).json({status:"Successfull",message:"Account Name Updated"})
+
+
+}
+
+
+res.status(200).json({status:"Failed",message:"No Data Provided For Update"})
+
+
+})
+
 
 
 module.exports=accountRouter

@@ -1,8 +1,18 @@
-const errorChecker=(req,res,next)=>{
+// importing modules
+const userAccountCollection= require("../Database/user-account-collection")
+
+const errorChecker= async (req,res,next)=>{
 
 const body=req.body
 
 if(body.name && body.email && body.phone && body.password){
+
+    const similarAccountInDatabase= await userAccountCollection.find({email:body.email})
+
+    if(similarAccountInDatabase.length>0){
+
+       return  res.status(200).json({status:"Failed",message:"Account Already Exist"}) 
+    }
 
     next()
 }

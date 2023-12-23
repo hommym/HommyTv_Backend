@@ -31,7 +31,13 @@ isProfileset:{
     default:false
 },
 
-profileImage:Buffer
+profileImage:Buffer,
+
+searchHistory:{
+    type:Array,
+    default:[]
+    
+}
 
 
 
