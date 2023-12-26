@@ -14,7 +14,7 @@ const jwtAuth=  async (req,res,next)=>{
 
    const token= authorization.split(" ")[1]
 
-console.log(token);
+
    try {
 
     // getting data(ie id) used in creating the token 

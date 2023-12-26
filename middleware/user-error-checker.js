@@ -5,7 +5,7 @@ const errorChecker= async (req,res,next)=>{
 
 const body=req.body
 
-if(body.name && body.email && body.phone && body.password){
+if(body.name && body.email && body.phone && body.password && body.gender && body.age){
 
     const similarAccountInDatabase= await userAccountCollection.find({email:body.email})
 

@@ -26,10 +26,6 @@ required:true,
 minlength:4
 
 },
-isProfileset:{
-    type:Boolean,
-    default:false
-},
 
 profileImage:Buffer,
 
@@ -37,6 +33,17 @@ searchHistory:{
     type:Array,
     default:[]
     
+},
+
+gender:{
+    type:String,
+    enum:["male","female"],
+    required:true
+},
+
+age:{
+    type:String,
+    required:true
 }
 
 
