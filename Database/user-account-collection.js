@@ -44,7 +44,19 @@ gender:{
 age:{
     type:String,
     required:true
+},
+
+watchlater:{
+    type:Array,
+    default:[]
+},
+
+
+favorite:{
+    type:Array,
+    default:[]
 }
+
 
 
 
