@@ -2,6 +2,7 @@
 const express= require("express")
 const databaseConnector=require("./Database/connectDb")
 const accountRouter=require("./Routes/acount-route")
+const  seriesRouter=require("./Routes/content-route")
 const resourceNotAvialableMiddleware=require("./middleware/resource-unavialable-middleware")
 require("dotenv").config()
 const jwtAuth=require("./middleware/jwt-authenticator")
@@ -18,6 +19,8 @@ app.use("/api/v1/account/edit-account-info",jwtAuth)
 
 // setting up routers
 app.use("/api/v1/account",accountRouter)
+
+app.use("/api/v1/content",jwtAuth,seriesRouter)
 
 
 // midlleware for unavialable resources
