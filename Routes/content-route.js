@@ -1,6 +1,7 @@
 const express= require("express")
 const getContent=require("../middleware/get-content")
 const getEpisodes=require("../middleware/get-episodes")
+const getVideo=require("../middleware/get-video")
 
 require("dotenv").config()
 
@@ -15,6 +16,20 @@ contentRouter.get("/episodes",getEpisodes,async(req,res)=>{
     res.status(200).json({allEpisodes:res.allEpisodes})
 
 })
+
+
+
+// route for getting videos 
+contentRouter.get("/:mediaType/video",getVideo,(req,res)=>{
+
+
+
+
+    res.end("Successs")
+})
+
+
+
 
 // route for getting series and movie content
 contentRouter.get("/:mediaType",getContent, async(req,res)=>{
