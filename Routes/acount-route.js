@@ -3,8 +3,11 @@ const express= require("express")
 const userAccountCollection= require("../Database/user-account-collection")
 const accountCreationMiddleware= require("../middleware/user-error-checker")
 const jwt=require("jsonwebtoken")
+const jwtAuth=require("../middleware/jwt-authenticator.js")
 require("dotenv").config()
 const fileSys= require("fs/promises")
+const passport= require("passport")
+const googleStrategy=require('passport-google-oauth20').Strategy
 
 
 const accountRouter=express.Router()
@@ -69,6 +72,7 @@ const account= await userAccountCollection.find({email:email,password:password})
 if(account.length==1){
 
 const {_id}= account[0]
+// creating jwt token for authorize users
 const token =jwt.sign({id:_id},process.env.SECRETKEYFORJWT,{ expiresIn: '1d' })
 
 res.status(200).json({status:"Succesfull",message:"LogIn Successfully",tokenForAuth:token})
@@ -154,6 +158,15 @@ accountRouter.post("/edit-account-info/:infoToUpdate",async (req,res)=>{
         
         })
 
+//  route to start to start authentication process
+accountRouter.get("/googleOAuth",  passport.authenticate('google', { scope: ['profile', 'email'] }))
+
+// route serving as callback url after google authentication is done
+accountRouter.get("/googleOAuth/callbackUrl", passport.authenticate('google'), (req,res)=>{
+
+    res.end("Done")
+
+})
 
 
 

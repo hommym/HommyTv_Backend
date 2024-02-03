@@ -3,7 +3,7 @@ const jwt= require("jsonwebtoken")
 require("dotenv").config()
 const userAccountCollection= require("../Database/user-account-collection")
 
-
+//  middle were for authenticating users and providing them with jwt token to show that they are authorized
 const jwtAuth=  async (req,res,next)=>{
 
     const {authorization} =req.headers

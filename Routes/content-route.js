@@ -41,7 +41,7 @@ contentRouter.get("/:mediaType",getContent, async(req,res)=>{
     if(mediaType==="series"){
 
         // sending the links to all the season
-        res.json({seasons:res.seasons})
+        res.json({seasons:res.allEpisodes})
 
 
     }
