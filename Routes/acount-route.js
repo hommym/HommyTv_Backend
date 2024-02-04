@@ -7,8 +7,9 @@ const jwtAuth=require("../middleware/jwt-authenticator.js")
 require("dotenv").config()
 const fileSys= require("fs/promises")
 const passport= require("passport")
+const { log } = require("console")
 const googleStrategy=require('passport-google-oauth20').Strategy
-
+const accountChecker=require("../helper-Methods/account-checker.js")
 
 const accountRouter=express.Router()
 
@@ -65,20 +66,16 @@ if(!email || !password){
 }
 
 else{
-const account= await userAccountCollection.find({email:email,password:password})
 
 
-// checking if acount exist in database
-if(account.length==1){
 
-const {_id}= account[0]
+// checking if acount exist in database(if mongoDb document id is returned the account exist if not null is returned)
+const id=await accountChecker(email,password,null)
+if(id){
 // creating jwt token for authorize users
-const token =jwt.sign({id:_id},process.env.SECRETKEYFORJWT,{ expiresIn: '1d' })
+const token =jwt.sign({id:id},process.env.SECRETKEYFORJWT,{ expiresIn: '1d' })
 
 res.status(200).json({status:"Succesfull",message:"LogIn Successfully",tokenForAuth:token})
-
-
-
 
 }
 else{
@@ -162,9 +159,23 @@ accountRouter.post("/edit-account-info/:infoToUpdate",async (req,res)=>{
 accountRouter.get("/googleOAuth",  passport.authenticate('google', { scope: ['profile', 'email'] }))
 
 // route serving as callback url after google authentication is done
-accountRouter.get("/googleOAuth/callbackUrl", passport.authenticate('google'), (req,res)=>{
+accountRouter.get("/googleOAuth/callbackUrl", passport.authenticate('google'), async (req,res)=>{
 
-    res.end("Done")
+   try {
+    
+    const id=await accountChecker(null,null,req.user)
+    
+    // creating jwt token for authorize users
+    const token =jwt.sign({id:id},process.env.SECRETKEYFORJWT,{ expiresIn: '1d' })
+    
+    res.status(200).json({status:"Succesfull",message:"LogIn Successfully",tokenForAuth:token})
+    
+    
+   } catch (error) {
+    res.status(500).json({satus:"Failed",message:`${error}`})
+   }
+
+    
 
 })
 

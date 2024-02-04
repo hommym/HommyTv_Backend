@@ -42,8 +42,8 @@ passport.use(new GoogleStrategy({
 
     // perform actions when authentication is done
 
-    console.log(profile);
-     return done(null, profile)   
+    // console.log(profile);
+    return done(null, profile)   
   }))
 
 

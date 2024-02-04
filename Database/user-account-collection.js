@@ -11,7 +11,7 @@ name:{
 
 phone:{
     type:Number,
-    required:true
+    default:null
 },
 
 email:{
@@ -22,7 +22,6 @@ email:{
 
 password:{
 type:String,
-required:true,
 minlength:4
 
 },
@@ -37,13 +36,13 @@ searchHistory:{
 
 gender:{
     type:String,
-    enum:["male","female"],
-    required:true
+    enum:["male","female","Not available"],
+    default:"Not available"
 },
 
 age:{
     type:String,
-    required:true
+    default:"Not available"
 },
 
 watchlater:{
