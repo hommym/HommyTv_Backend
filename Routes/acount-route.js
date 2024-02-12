@@ -9,7 +9,7 @@ const fileSys= require("fs/promises")
 const passport= require("passport")
 const { log } = require("console")
 const googleStrategy=require('passport-google-oauth20').Strategy
-const accountChecker=require("../helper-Methods/account-checker.js")
+const accountChecker=require("../Controller/account-checker.js")
 
 const accountRouter=express.Router()
 
