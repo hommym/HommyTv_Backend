@@ -9,7 +9,8 @@ const jwtAuth=require("./middleware/jwt-authenticator")
 const passport= require("passport")
 const GoogleStrategy=require('passport-google-oauth20').Strategy
 const session=require("express-session")
-
+const localDataSync= require("./Routes/user-data-sync-route.js")
+const errorHandler=require("./middleware/error-handler.js")
 
 
 // creating the server object
@@ -61,11 +62,13 @@ app.use("/api/v1/account",accountRouter)
 
 app.use("/api/v1/content",jwtAuth,seriesRouter)
 
+app.use("/api/v1/data-sync",jwtAuth,localDataSync)
+
 
 // midlleware for unavialable resources
 app.use(resourceNotAvialableMiddleware)
 
-
+app.use(errorHandler)
 
 
 
