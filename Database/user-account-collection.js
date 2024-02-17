@@ -54,6 +54,15 @@ watchlater:{
 favorite:{
     type:Array,
     default:[]
+},
+
+watch_history:{
+    type:Array,
+    default:[]
+},
+play_list:{
+    type:Array,
+    default:[]
 }
 
 
